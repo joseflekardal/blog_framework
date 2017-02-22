@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/config.php';
+
 session_start();
 
 $db = new PDO('mysql:host=localhost;dbname=mellbergs_blogg', 'root', 'root');
@@ -30,7 +32,7 @@ function dd($var)
 
 function base($str = '')
 {
-    return 'http://localhost:3000/' . $str;
+    return BASE_URL . $str;
 }
 
 function img($str)
@@ -54,7 +56,7 @@ function pagination($pages = 0, $page = 1)
         $pagination_links .= "<a href='". base('?page=') . ($i+1) . "'>" . ($i+1) . " </a>";
     }
 
-    if ($page < 10) {
+    if ($page < $pages) {
         $pagination_links .= "<a href='?page=" . ($page + 1) . "'>&raquo;</a>";
     }
 

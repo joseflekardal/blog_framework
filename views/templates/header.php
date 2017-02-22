@@ -12,7 +12,7 @@
             <header>
                 <h1 class="title"><a href="<?= base() ?>">Blogg</a></h1>
                 <nav>
-                    <?php foreach($menu_items as $item) : ?>
+                    <?php foreach ($menu_items as $item) : ?>
                     <a href="<?= base('kategori/' . $item->slug) ?>">
                         <?= $item->name ?>
                     </a>
