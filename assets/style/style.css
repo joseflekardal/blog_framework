@@ -1,0 +1,52 @@
+body {
+    font-family: sans-serif;
+    color: #444;
+}
+
+a {
+    text-decoration: none;
+    color: indianred;
+}
+
+h1, h2, h3 {
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 1em;
+}
+
+
+.wrapper {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 1000px;
+}
+
+.posts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.post {
+    margin: 1em;
+    flex: 1 0 300px;
+    text-align: center;
+}
+
+.img {
+    background-size: cover;
+    background-repeat: none;
+    background-position: center center;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.description {
+    font-style: italic;
+}

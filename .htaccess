@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteRule ^user/([0-9]+) controllers/user.php?id=$1 [NC,L]
+RewriteRule ^admin controllers/admin.php [NC,L]
+RewriteRule ^login controllers/login.php [NC,L]
+RewriteRule ^logout controllers/logout.php [NC,L]
+RewriteRule ^delete/([0-9]+) controllers/delete.php?id=$1 [NC,L]
+RewriteRule ^post/([0-9]+) controllers/post.php?id=$1 [NC,L]
+RewriteRule ^kategori/([a-zA-Z]+) controllers/kategori.php?slug=$1 [NC,L]
+
+ErrorDocument 404 /new_blog/controllers/404.php
