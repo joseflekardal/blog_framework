@@ -28,8 +28,6 @@ $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
 $sth->execute();
 $posts = $sth->fetchAll(PDO::FETCH_OBJ);
 
-$pagination = pagination($pages, $page);
+$twig->addGlobal('pagination', pagination($pages, $page));
 
-echo $twig->render('home.twig', [
-    'posts' => $posts,
-]);
+echo $twig->render('home.twig', ['posts' => $posts]);

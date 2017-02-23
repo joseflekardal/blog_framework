@@ -2,6 +2,11 @@
 
 require_once '../functions.php';
 
+$loader = new Twig_Loader_Filesystem('../views/');
+$twig = new Twig_Environment($loader);
+
+$twig->addGlobal('base', BASE_URL);
+
 if (!isset($_SESSION['id'])) {
     $_SESSION['error'] = "Please login";
     header('Location: login');
@@ -25,4 +30,7 @@ $sth->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
 $sth->execute();
 $user->posts = $sth->fetchAll(PDO::FETCH_OBJ);
 
-require_once '../views/admin.view.php';
+echo $twig->render('admin.twig', [
+    'user' => $user,
+
+]);

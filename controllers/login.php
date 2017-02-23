@@ -2,6 +2,9 @@
 
 require_once '../functions.php';
 
+$loader = new Twig_Loader_Filesystem('../views/');
+$twig = new Twig_Environment($loader);
+
 if (isset($_POST['username']) && !empty(trim($_POST['username']))) {
 
     $sth = $db->prepare("SELECT * FROM users WHERE username = :username");
@@ -22,4 +25,6 @@ if (isset($_POST['username']) && !empty(trim($_POST['username']))) {
 
 }
 
-require_once '../views/login.view.php';
+echo $twig->render('login.twig', [
+    'flash' => flash(),
+]);

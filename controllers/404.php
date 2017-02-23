@@ -1,4 +1,10 @@
 <?php
 
 require_once '../functions.php';
-require_once '../views/404.php';
+
+$loader = new Twig_Loader_Filesystem('../views/');
+$twig = new Twig_Environment($loader);
+
+$twig->addGlobal('base', BASE_URL);
+
+$twig->display('404.twig');

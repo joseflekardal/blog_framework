@@ -2,6 +2,13 @@
 
 require_once '../functions.php';
 
+$loader = new Twig_Loader_Filesystem('../views/');
+$twig = new Twig_Environment($loader);
+
+$twig->addGlobal('style', style('style.css'));
+$twig->addGlobal('base', BASE_URL);
+$twig->addGlobal('menu_items', $menu_items);
+
 $sth = $db->prepare("SELECT * FROM categories WHERE slug = :slug");
 $sth->bindParam(':slug', $_GET['slug'], PDO::PARAM_STR);
 $sth->execute();
@@ -14,4 +21,7 @@ $posts = $db->query(
     ORDER BY id DESC"
 )->fetchAll(PDO::FETCH_OBJ);
 
-require_once '../views/kategori.view.php';
+echo $twig->render('kategori.twig', [
+    'posts' => $posts,
+    'cat' => $cat
+]);

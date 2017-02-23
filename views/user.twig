@@ -1,0 +1,18 @@
+{% extends 'templates/base.twig' %}
+
+{% block content %}
+
+<h2>{{ user.first_name}} profile</h2>
+<a href="mailto:{{ user.email }}">
+    <img src="../assets/uploads/{{ user.avatar }}" width="200">
+</a>
+<p class="description">{{ user.description }}"</p>
+<hr>
+<h3>My posts</h3>
+{% for post in user.posts %}
+<a href="{{ base }}post/{{ post.id }}">
+    <h2>{{ post.title }}</h2>
+</a>
+{% endfor %}
+
+{% endblock %}
