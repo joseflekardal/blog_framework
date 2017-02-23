@@ -6,7 +6,7 @@
 <div class="img" style="background-image: url('../assets/uploads/{{ post.featured_img }}')"></div>
 <p>{{ post.content | raw }}</p>
 <p><small>
-    Written by <a href="{{ base }}user/{{ post.user_id }}">{{ post.author }}</a>
+    Written by <a href="{{ base }}user/{{ post.author.id }}">{{ post.author.full_name }}</a>
     <date>On {{ post.created_at }}</date>
 </small></p>
 

@@ -5,7 +5,6 @@ require_once '../functions.php';
 $loader = new Twig_Loader_Filesystem('../views/');
 $twig = new Twig_Environment($loader);
 
-$twig->addGlobal('style', style('style.css'));
 $twig->addGlobal('base', BASE_URL);
 $twig->addGlobal('menu_items', $menu_items);
 

@@ -3,9 +3,11 @@
 session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/database.php';
 
-$db = new PDO('mysql:host=localhost;dbname=mellbergs_blogg', 'root', 'root');
+$dsn = 'mysql:host=' . HOST . ';dbname=' . DB_NAME;
+
+$db = new PDO($dsn, DB_USER, DB_PASS);
 
 $menu_items = $db->query('SELECT * FROM categories')->fetchAll(PDO::FETCH_OBJ);
 
@@ -31,21 +33,6 @@ function dd($var)
     die(var_dump($var));
 }
 
-function base($str = '')
-{
-    return BASE_URL . $str;
-}
-
-function img($str)
-{
-    return base('assets/uploads/' . $str);
-}
-
-function style($str)
-{
-    return base('assets/style/' . $str);
-}
-
 function pagination($pages = 0, $page = 1)
 {
     $pagination_links = '';
@@ -54,7 +41,7 @@ function pagination($pages = 0, $page = 1)
     }
 
     for ($i = 0; $i < $pages; $i++) {
-        $pagination_links .= "<a href='". base('?page=') . ($i+1) . "'>" . ($i+1) . " </a>";
+        $pagination_links .= "<a href='" . BASE_URL . "?page=" . ($i+1) . "'>" . ($i+1) . " </a>";
     }
 
     if ($page < $pages) {

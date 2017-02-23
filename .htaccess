@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteRule ^$ controllers/index.php [NC,L]
+
 RewriteRule ^user/([0-9]+) controllers/user.php?id=$1 [NC,L]
 RewriteRule ^admin controllers/admin.php [NC,L]
 RewriteRule ^login controllers/login.php [NC,L]
