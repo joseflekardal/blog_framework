@@ -7,7 +7,7 @@
 <p>{{ post.content | raw }}</p>
 <p><small>
     Written by <a href="{{ base }}user/{{ post.author.id }}">{{ post.author.full_name }}</a>
-    <date>On {{ post.created_at }}</date>
+    <date>{{ post.created_at.diffForHumans() }}</date>
 </small></p>
 
 {% endblock %}

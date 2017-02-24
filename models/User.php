@@ -1,6 +1,6 @@
 <?php
 
-namespace Lekardal;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ class User extends Model
 {
     public function posts()
     {
-        return $this->hasMany('Lekardal\Post');
+        return $this->hasMany('App\Post');
     }
 
     public function getFullNameAttribute()

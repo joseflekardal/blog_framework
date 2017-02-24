@@ -5,11 +5,17 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/database.php';
 
-$dsn = 'mysql:host=' . HOST . ';dbname=' . DB_NAME;
+use App\Category;
 
-$db = new PDO($dsn, DB_USER, DB_PASS);
+$loader = new Twig_Loader_Filesystem('../views/');
+$twig = new Twig_Environment($loader, [
+    'debug' => true
+]);
 
-$menu_items = $db->query('SELECT * FROM categories')->fetchAll(PDO::FETCH_OBJ);
+$twig->addExtension(new Twig_Extension_Debug());
+
+$twig->addGlobal('base', BASE_URL);
+$twig->addGlobal('menu_items', Category::all());
 
 function flash()
 {
@@ -36,17 +42,22 @@ function dd($var)
 function pagination($pages = 0, $page = 1)
 {
     $pagination_links = '';
-    if ($page > 1) {
-        $pagination_links .= "<a href='?page=" . ($page - 1) . "'>&laquo;</a>";
+    $base = BASE_URL;
+    $next = $page + 1;
+    $prev = $page - 1;
+
+    $pagination_links .= $page > 1 ? "<a href='$base?page=$prev'>&laquo;</a>" : null;
+
+    for ($i = 1; $i <= $pages; $i++) {
+
+        $current_page = $page === $i;
+
+        $pagination_links .= "<a href='$base?page=$i'";
+        $pagination_links .= $current_page ? ' class="active_page"' : null;
+        $pagination_links .= ">$i</a>";
     }
 
-    for ($i = 0; $i < $pages; $i++) {
-        $pagination_links .= "<a href='" . BASE_URL . "?page=" . ($i+1) . "'>" . ($i+1) . " </a>";
-    }
-
-    if ($page < $pages) {
-        $pagination_links .= "<a href='?page=" . ($page + 1) . "'>&raquo;</a>";
-    }
+    $pagination_links .= $page < $pages ? "<a href='$base?page=$next'>&raquo;</a>" : null;
 
     return $pagination_links;
 }

@@ -1,8 +1,9 @@
 {
     "require": {
         "twig/twig": "^2.1",
-        "illuminate/database": "^5.4"
+        "illuminate/database": "^5.4",
+        "robmorgan/phinx": "^0.7.1"
     }, "autoload": {
-        "psr-4": { "Lekardal\\": "models/" }
+        "psr-4": { "App\\": "models/" }
     }
 }

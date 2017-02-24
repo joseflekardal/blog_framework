@@ -2,31 +2,20 @@
 
 require_once '../functions.php';
 
-$loader = new Twig_Loader_Filesystem('../views/');
-$twig = new Twig_Environment($loader);
-
-$twig->addGlobal('base', BASE_URL);
-$twig->addGlobal('menu_items', $menu_items);
+use App\Post;
 
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, 1) ?? 1;
-$total = $db->query("SELECT * FROM posts WHERE published = 1")->rowCount();
+$total = Post::where('published', "1")->count();
 $limit = 9;
 $offset = $limit * ($page - 1);
 $pages = ceil($total / $limit);
 
-$sth = $db->prepare(
-    "SELECT * FROM posts
-    WHERE published = 1
-    ORDER BY posts.id DESC
-	LIMIT :limit
-    OFFSET :offset"
-);
+$posts = Post::where('published', '1')
+    ->offset($offset)
+    ->limit($limit)
+    ->get();
 
-$sth->bindValue(':limit', $limit, PDO::PARAM_INT);
-$sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-$sth->execute();
-$posts = $sth->fetchAll(PDO::FETCH_OBJ);
-
-$twig->addGlobal('pagination', pagination($pages, $page));
-
-echo $twig->render('home.twig', ['posts' => $posts]);
+$twig->display('home.twig', [
+    'posts' => $posts,
+    'pagination' => pagination($pages, $page),
+]);
